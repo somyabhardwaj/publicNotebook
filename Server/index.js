@@ -3,8 +3,11 @@ const dotenv = require('dotenv')
 const connectToMongo = require('./db')
 const userRouter = require('./routes/auth')
 const notes = require('./routes/notes')
-const app = express();
+const cors = require('cors')
 
+const app = express();
+ 
+app.use(cors())
 dotenv.config();
 connectToMongo();
 app.use(express.json());

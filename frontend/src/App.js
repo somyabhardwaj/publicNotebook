@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import {  
+  BrowserRouter,  
+  Routes,  
+  Route,  
+}   
+from 'react-router-dom';  
 
+import './App.css';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import About from './components/About';
+import NoteItems from './components/NoteItems';
+import React, { useEffect } from 'react';
+import fetchNotes from './redux/api/notesApi';
+import { useDispatch } from 'react-redux';
+import Edit from './components/crud/Edit';
 function App() {
+
+  const dispatch =useDispatch()
+   useEffect(()=>{
+dispatch(fetchNotes())
+   },[dispatch])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <>
+
+   <BrowserRouter>
+   <Navbar />
+   <NoteItems />
+   <div className='container'>
+   <Routes>
+    <Route path="/" element={  <Home />}/>
+   <Route path="/about" element={  <About />}/>
+   <Route path="/about" element={  <About />}/>
+   <Route path="/edit" element={  <Edit />}/>
+  
+  
+    </Routes>
     </div>
+    </BrowserRouter>
+   
+   </>
   );
 }
 

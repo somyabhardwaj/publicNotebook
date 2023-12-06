@@ -10,16 +10,12 @@ router.get('/getnotes',fetchUser, async (req,res)=>{
    
     try{
         const notes = await Notes.find({user:req.user})
-        res.status(200).json({notes})
+        res.status(200).json(notes)
     }catch(err){
         console.log(err)
     }
 
 })
-
-router.post('/createnote',fetchUser ,async (req,res)=>{})
-
-
 
 
 // Route 2: to create a new note using post requiest /api/notes/addnote 
