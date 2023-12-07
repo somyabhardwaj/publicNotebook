@@ -34,16 +34,16 @@ function Create() {
     }
     dispatch(createNotes(data))
     dispatch(fetchNotes())
-    setTitle("")
-    setDescription("")
-    setTag("")
+    // setTitle("")
+    // setDescription("")
+    // setTag("")
 
   }
 
   return (
     <>
-      <div className='border p-4 m-4'>
-        <h1>Create Note</h1>
+      <div className=''>
+     
         <div className="mb-3 row" id="#edit">
           <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
           <div className="col-sm-10">
@@ -53,7 +53,7 @@ function Create() {
         <div className="mb-3 row">
           <label htmlFor="description" className="col-sm-2 col-form-label">Description</label>
           <div className="col-sm-10">
-            <input type="textbox" className="form-control" id="description" value={description} onChange={handelOnChange} />
+            <textarea type="textbox" className="form-control overflow-scroll" id="description" value={description} onChange={handelOnChange} />
           </div>
         </div>
         <div className="mb-3 row">
@@ -62,7 +62,11 @@ function Create() {
             <input type="textbox" className="form-control" id="tag" value={tag} onChange={handelOnChange} />
           </div>
         </div>
-        <button onClick={handelOnClick} className='btn btn-primary'>Submit</button>
+        {/* <button onClick={handelOnClick} className='btn btn-primary'>Submit</button> */}
+        <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button"  onClick={handelOnClick} className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+      </div>
       </div>
     </>
   )

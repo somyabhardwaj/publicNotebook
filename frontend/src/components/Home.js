@@ -11,10 +11,7 @@ import Create from "../components/crud/Create"
 function Home() {
   return (
     <div>
-     
-     <Create />
-
-     
+        
     </div>
   )
 }

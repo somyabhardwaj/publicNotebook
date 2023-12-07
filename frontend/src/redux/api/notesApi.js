@@ -70,7 +70,7 @@ try{
 export const deleteNote = createAsyncThunk("/delete/:id",async (id)=>{
 
    try{
-      const response = await axios.delete(`${host}delete/${id}`,{
+      const response = await axios.delete(`${host}notes/delete/${id}`,{
          headers:{
             "auth-token":"eyJhbGciOiJIUzI1NiJ9.NjU2MzMxZjc5MTZmOWFjNTQ1NDgyOTNk.xgQuQ4N-f2b_QLh-jDhbPxVYyw0tEBdX92qz8fqbFUU"
       

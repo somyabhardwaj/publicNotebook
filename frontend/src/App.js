@@ -15,7 +15,7 @@ import fetchNotes from './redux/api/notesApi';
 import { useDispatch } from 'react-redux';
 import Edit from './components/crud/Edit';
 function App() {
-
+  
   const dispatch =useDispatch()
    useEffect(()=>{
 dispatch(fetchNotes())
@@ -31,7 +31,7 @@ dispatch(fetchNotes())
     <Route path="/" element={  <Home />}/>
    <Route path="/about" element={  <About />}/>
    <Route path="/about" element={  <About />}/>
-   <Route path="/edit" element={  <Edit />}/>
+ 
   
   
     </Routes>

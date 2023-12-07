@@ -8,7 +8,8 @@ const noteSlice = createSlice({
   initialState: {
     notes: [],
     id:null,
-    updateNote:{}
+    updateNote:{},
+    token : ""
       },
   reducers: {
     setNotes: (state, action) => {
@@ -23,6 +24,9 @@ const noteSlice = createSlice({
       console.log( state.updateNote)
     },
   },
+  token:(state, action) => {
+    state.token = action.payloadr
+  },
   extraReducers: (builder) => {
     
     builder.addCase(fetchNotes.fulfilled, (state, action) => {
@@ -32,5 +36,5 @@ const noteSlice = createSlice({
   },
 });
 
-export const { setNotes, setId, editNote } = noteSlice.actions;
+export const { setNotes, setId, editNote, token } = noteSlice.actions;
 export default noteSlice.reducer;

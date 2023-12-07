@@ -39,7 +39,7 @@ router.post('/addnote',fetchUser,[
         }
         const savenote = await Notes.create(note);
         res.status(200).json(savenote)
-console.log(note)
+// console.log(note)
     }catch (error) {
         console.log({ error })
         return res.status(500).json({ err: error.message })
@@ -68,7 +68,7 @@ router.put('/updatenote/:id',fetchUser, async(req,res)=>{
                 return res.status(401).send("Invalid Request")
             }
             const updatedNote = await Notes.findByIdAndUpdate(req.params.id, {$set:newNote},{new:true})
-               console.log(updatedNote)
+            //    console.log(updatedNote)
             return res.status(200).json(updatedNote)
         
     }catch (error) {
