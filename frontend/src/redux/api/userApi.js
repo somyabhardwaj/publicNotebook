@@ -12,7 +12,7 @@ export const userSignIn = createAsyncThunk('user/create', async (user) => {
         email: user.email,
         password: user.password
       };
-
+         
       const response = await fetch(`${host}user/create`, {
         method: 'POST',
         headers: {
@@ -22,7 +22,7 @@ export const userSignIn = createAsyncThunk('user/create', async (user) => {
       });
 
       const result = await response.json();
-      
+       
       return result;
     } catch (err) {
       throw err;

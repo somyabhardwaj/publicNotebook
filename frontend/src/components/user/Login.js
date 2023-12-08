@@ -8,10 +8,9 @@ import fetchNotes from "../../redux/api/notesApi"
 
 
 function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.user.Lstatus)
   const token = useSelector((state) => state.user.authToken);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -33,23 +32,26 @@ function Login() {
       password: password
     }
 
-    dispatch(userLogin(user)).then((response) => {
-
-    }).then(() => {
-      if (loading) {
+    dispatch(userLogin(user))
+    .then((response) => {
+      
+      if (response && response.payload.data && response.payload.data.success === true) {
         enqueueSnackbar('Login Successful redirecting to login paige', { variant: 'success' })
         navigate('/home')
         dispatch(fetchNotes(token))
-      }
-      if (!loading) {
+      }})
+      .catch((err)=>{
+        console.log({err})
         enqueueSnackbar('Please enter valid cridentials', { variant: 'error' })
         navigate("")
-      }
-    })
+      })
+      .finally(()=>{
+        setEmail('')
+    setPassword('')
+      })
 
 
-    setEmail("")
-    setPassword("")
+    
   }
   const clickSiginModel = () => {
     const SiginButton = document.getElementById('myButton')
@@ -67,7 +69,7 @@ function Login() {
       </button>
 
       {/* <!-- Modal --> */}
-      <div className="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">

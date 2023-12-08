@@ -83,17 +83,17 @@ router.delete('/delete/:id',fetchUser, async(req,res)=>{
                 
         const note = await Notes.findById(req.params.id)
         if (!note){
-            return res.status(401).send("Note Not found")
+            return res.status(401).json({success:false,msg:"Note Not found"})
         }
         if(note.user.toString() !== req.user){
-            return res.status(404).send("Invalid Request")
+            return res.status(404).json({success:false,msg:"Invalid Request"})
         }
 
         const deletenote = await Notes.findByIdAndDelete(req.params.id)
-        return res.status(200).send("Note Deleted Successfully")
+        return res.status(200).json({success:true,msg:"Note Deleted Successfully"})
     }catch (error) {
         console.log({ error })
-        return res.status(500).json({ err: error.message })
+        return res.status(500).json({ success:false, err: error.message })
     }
 })
 

@@ -64,14 +64,17 @@ const fetchNotes = createAsyncThunk("notes/getnotes", async (token) => {
  });
  
  // Delete notes
- export const deleteNote = createAsyncThunk("/delete/:id", async (id) => {
+ export const deleteNote = createAsyncThunk("/delete/:id", async (data) => {
+         
+  const {noteId, token} = data
 
    try {
-     const response = await axios.delete(`${host}notes/delete/${id}`, {
-      //  headers: {
-      //    "auth-token": token,
-      //  },
+     const response = await axios.delete(`${host}notes/delete/${noteId}`, {
+       headers: {
+         "auth-token": token,
+       },
      });
+    //  console.log ({response})
      return response;
    } catch (err) {
      throw err;

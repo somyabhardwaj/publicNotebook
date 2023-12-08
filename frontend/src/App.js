@@ -39,7 +39,7 @@ function App() {
             <Route path="/note" element={<NoteItems />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signin" element={<Signin />} />
-            <Route path="/signin" element={<Alert/>} />
+            <Route path="/alert" element={<Alert/>} />
 
 
           </Routes>

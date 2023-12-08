@@ -7,13 +7,12 @@ import { Link } from 'react-router-dom';
 
 
 function Signin() {
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();   
-    const loading = useSelector((state) => state.user.status)    
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    
+
 
     const handelOnChange = (e) => {
 
@@ -28,60 +27,63 @@ function Signin() {
         }
 
     }
+
     const handelOnSubmit = () => {
         const user = {
             name: name,
             email: email,
             password: password
         }
-        dispatch(userSignIn(user)).then((responseData) => {
-            if (loading) {
-                enqueueSnackbar('Signup Successful redirecting to login paige', { variant: 'success' })
-                // handleNavigate("/login")
-                const loginbutton = ()=>{
-                    const btn = document.getElementById("loginButton")
-                    if(btn){
-                        btn.click()
-                    }
 
+        dispatch(userSignIn(user))
+            .then((responseData) => {
+                
+                if (responseData && responseData.payload && responseData.payload.success === true) {
+                    enqueueSnackbar('Signup Successful redirecting to login page', { variant: 'success' });
+                    
+                    const loginbutton = () => {
+                        const btn = document.getElementById("loginButton");
+                        if (btn) {
+                            btn.click();
+                        }
+                    };
+                    loginbutton();
+                } else {
+                    enqueueSnackbar('Please enter valid credentials', { variant: 'error' });
                 }
-                loginbutton()
-            }
-            if (!loading) {
-                enqueueSnackbar('Please enter valid cridentials', { variant: 'error' })
-
-            }
-            // // use this error msg below each input field in signin
-            // const errorMessages = responseData.payload.result && responseData.payload.result
-            //     ? responseData.payload.result.map(item => item.msg).join(", ")
-            //     : "No error messages"; 
-
-        })
-        setName("")
-        setEmail("")
-        setPassword("")
-
+            })
+            .catch((error) => {
+                console.error("Error signing in:", error);
+                enqueueSnackbar('An error occurred. Please try again.', { variant: 'error' });
+            })
+            .finally(() => {
+                setName("");
+                setEmail("");
+                setPassword("");
+            });
     }
-    const clickLoginModel =()=>{
+
+
+    const clickLoginModel = () => {
         const logButton = document.getElementById("loginButton")
-        if(logButton){
-          logButton.click()
+        if (logButton) {
+            logButton.click()
         }
         console.log("clickLoginModel ")
-      }
+    }
 
     return (
         <>
-            
+
             {/* <!-- Button trigger Signin modal --> */}
 
-            <button  id="myButton" type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button id="myButton" type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Sign In
             </button>
 
             {/* <!-- Modal --> */}
 
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -121,8 +123,8 @@ function Signin() {
                             <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handelOnSubmit} >SignIn</button>
                         </div>
                         <div className='d-flex justify-content-end mx-4'>
-                        <p>Already a user ? <Link data-bs-dismiss="modal" onClick={clickLoginModel}>Click here</Link> to Login.</p>
-                    </div>
+                            <p>Already a user ? <Link data-bs-dismiss="modal" onClick={clickLoginModel}>Click here</Link> to Login.</p>
+                        </div>
                     </div>
                 </div>
             </div>

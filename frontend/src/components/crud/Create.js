@@ -45,10 +45,10 @@ function Create() {
     
     .then(()=>{
       if(loading === 'fulfilled'){
-        enqueueSnackbar('Note Updated Successfully',{ variant: 'success'})
+        enqueueSnackbar('Note Created Successfully',{ variant: 'success'})
     }
     if(loading === 'rejected'){
-        enqueueSnackbar("Error:note can not be updated", {varient:'error'})
+        enqueueSnackbar("Error:note can not be Craeted", {varient:'error'})
     }
     })
     .catch((error) => {

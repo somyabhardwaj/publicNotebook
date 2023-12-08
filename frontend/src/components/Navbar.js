@@ -50,8 +50,8 @@ function Navbar() {
        </ul>
       <form className="d-flex">
         
-       <Link to="/login"> <button onClick={clickLoginModel} className="btn btn-outline-success mx-2" >LogIn</button></Link>
-       <Link to = "/signin"> <button onClick={clickSiginModel} className="btn btn-outline-success mx-2" >SignUp</button></Link>
+       <Link > <button onClick={clickLoginModel} className="btn btn-outline-success mx-2" >LogIn</button></Link>
+       <Link > <button onClick={clickSiginModel} className="btn btn-outline-success mx-2" >SignUp</button></Link>
       </form>
     </div>
   </div>

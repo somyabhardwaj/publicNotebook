@@ -32,20 +32,17 @@ function NoteItems() {
 
     const handelDeleteClick = (noteId) => {
 
-        dispatch(deleteNote(noteId))
-            .then(() => dispatch(fetchNotes(token)))
-            .then(()=>{
-                if(loading === 'fulfilled'){
-                    enqueueSnackbar('Note Deleted Successfully',{ variant: 'success'})
-                }
-                if(loading === 'rejected'){
-                    enqueueSnackbar("Error:note can not be deleted", {varient:'error'})
-                }
-            })
-            .catch((error) => {
-                console.error("Error deleting note:", error);
-            });
-    }
+        dispatch(deleteNote({noteId,token}))
+            .then((response) => {
+                dispatch(fetchNotes(token))
+                    if(response.payload !== undefined){
+                        enqueueSnackbar("Note deleted successfully", {varient:'success'})
+                    }
+                    else{
+                        enqueueSnackbar("Error: Note can not be deleted", {varient: 'error'})
+                    }
+            })            
+        }
 
     const showPopup = (id) => {
         setNoteId(id)
