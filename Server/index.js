@@ -16,8 +16,8 @@ app.use(express.json());
 app.use('/api/user', userRouter);
 app.use('/api/notes', notes)
 
-app.get("/", (req,res)=>{
-    console.log("app is initialised")
+app.get("/", (req ,res)=>{
+    // console.log("app is initialised")
     res.send("hello there")
 })
 

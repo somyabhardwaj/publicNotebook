@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import fetchNotes, { editNotes } from '../../redux/api/notesApi';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack';
+
+
+
 function Edit() {
 
   const [title, setTitle] = useState();
@@ -9,7 +13,9 @@ function Edit() {
 
   const dispatch = useDispatch();
   const id = useSelector((state) => state.notes.id)
-
+  const loading = useSelector((state)=> state.notes.status)
+  const token = useSelector((state) => state.user.authToken);
+  const { enqueueSnackbar } = useSnackbar();    
 
 
   const handelOnChange = (e) => {
@@ -31,10 +37,19 @@ function Edit() {
       title,
       description,
       tag,
-      id
+      id,
+      token
     }
     dispatch(editNotes(data))
-    .then(() => dispatch(fetchNotes()))
+    .then(() => dispatch(fetchNotes(token)))
+    .then(()=>{
+      if(loading === 'fulfilled'){
+        enqueueSnackbar('Note Updated Successfully',{ variant: 'success'})
+    }
+    if(loading === 'rejected'){
+        enqueueSnackbar("Error:note can not be updated", {varient:'error'})
+    }
+    })
       .catch((error) => {
         console.error("Error editing note:", error);
       });    

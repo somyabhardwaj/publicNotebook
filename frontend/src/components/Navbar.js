@@ -1,12 +1,36 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function Navbar() {
-
+  const navigate = useNavigate()
+  const token = useSelector((state)=>state.user.authToken)
   const location = useLocation();
   useEffect(()=>{
     // console.log(location.pathname)
   },[location])
+
+  const clickSiginModel = ()=>{
+    const button = document.getElementById("myButton")
+    if(button){
+      button.click()
+    }
+  }
+  const clickLoginModel = ()=>{
+    const button = document.getElementById("loginButton")
+    if(button){
+      button.click()
+    }
+  }
+   const onHomeClick=()=>{
+
+    if (token !== null){
+      navigate("/home")
+    }
+    if(token === null){
+      navigate("/alert")
+    }
+   }
   return (
     <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,15 +42,16 @@ function Navbar() {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <Link className= {`nav-link ${location.pathname === "/" ? "active":""}`}aria-current="page" to="/">Home</Link>
+          <Link onClick={onHomeClick} className= {`nav-link ${location.pathname === "/home" ? "active":""}`}aria-current="page" >Home</Link>
         </li>
         <li className="nav-item">
           <Link className={`nav-link ${location.pathname === "/about" ? "active":""}`} to="/about">About</Link>
         </li>
        </ul>
       <form className="d-flex">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-        <button className="btn btn-outline-success" type="submit">Search</button>
+        
+       <Link to="/login"> <button onClick={clickLoginModel} className="btn btn-outline-success mx-2" >LogIn</button></Link>
+       <Link to = "/signin"> <button onClick={clickSiginModel} className="btn btn-outline-success mx-2" >SignUp</button></Link>
       </form>
     </div>
   </div>

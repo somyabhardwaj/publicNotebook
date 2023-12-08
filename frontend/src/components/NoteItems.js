@@ -4,21 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import { setId } from "../redux/reducers/noteSlice";
 import fetchNotes, { deleteNote } from "../redux/api/notesApi";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Edit from '../components/crud/Edit';
 import Create from "./crud/Create";
-
+import { useSnackbar } from 'notistack';
+import { Link } from "react-router-dom";
 
 
 function NoteItems() {
 
     const Notes = useSelector((state) => state.notes.notes)
+    const loading = useSelector((state)=>state.notes.status)
     const [noteId, setNoteId] = useState();
     const [showDescription, setshowDescription] = useState();
     const [showTitle, setshowTitle] = useState();
     const [showTag, setshowTag] = useState();
+    const { enqueueSnackbar } = useSnackbar();    
     const ref = useRef(null)
-    const refClose = useRef(null)
+    const token = useSelector((state) => state.user.authToken);
     const dispatch = useDispatch();
 
 
@@ -30,7 +33,15 @@ function NoteItems() {
     const handelDeleteClick = (noteId) => {
 
         dispatch(deleteNote(noteId))
-            .then(() => dispatch(fetchNotes()))
+            .then(() => dispatch(fetchNotes(token)))
+            .then(()=>{
+                if(loading === 'fulfilled'){
+                    enqueueSnackbar('Note Deleted Successfully',{ variant: 'success'})
+                }
+                if(loading === 'rejected'){
+                    enqueueSnackbar("Error:note can not be deleted", {varient:'error'})
+                }
+            })
             .catch((error) => {
                 console.error("Error deleting note:", error);
             });
@@ -56,9 +67,6 @@ function NoteItems() {
     };
 
 
-    useEffect(() => {
-
-    }, [fetchNotes()])
 
 
     return (
@@ -154,9 +162,9 @@ function NoteItems() {
                     <div className="d-flex align-items-center justify-content-around ">
                         <h1>Your Notes</h1>
                         {/* <!-- Button Create modal --> */}
-                        <a data-bs-toggle="modal" data-bs-target="#createModal">
+                        <Link data-bs-toggle="modal" data-bs-target="#createModal">
                             <i className="h4 mt-4 " style={{ color: "green", cursor:"pointer" }}><FaFileCirclePlus /></i>
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -183,17 +191,17 @@ function NoteItems() {
                                 <td>
                                     <div className="d-flex justify-content-between">
                                         {/* <!-- Button Delete modal --> */}
-                                        <a className="border-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <Link className="border-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                             <i onClick={() => { showPopup(note._id) }} className='h4' style={{ color: "green",cursor:"pointer" }}><FaRegTrashCan /></i>
-                                        </a>
+                                        </Link>
                                         {/* <!-- Button Edit modal --> */}
-                                        <a data-bs-toggle="modal" data-bs-target="#editModal">
+                                        <Link data-bs-toggle="modal" data-bs-target="#editModal">
                                             <i onClick={() => { handelonclickedit(note._id) }} className='h4' style={{ color: "blue",cursor:"pointer" }}><FaRegPenToSquare /></i>
-                                        </a>
+                                        </Link>
                                         {/* <!-- Button Show modal --> */}
-                                        <a data-bs-toggle="modal" data-bs-target="#showModal">
+                                        <Link data-bs-toggle="modal" data-bs-target="#showModal">
                                             <i onClick={() => { showModel({ title: note.title, description: note.description, tag: note.tag }) }} className='h4' style={{ color: "red",cursor:"pointer" }}><FaCircleInfo /></i>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </td>
                             </tr>

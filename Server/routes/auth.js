@@ -8,21 +8,25 @@ const fetchUser = require('../middleware/getuser')
 
 
 // create user using :POST /api/auth
-router.post('/', [body('name', "Name should not be empty").notEmpty(),
-body('email', "email invalid").isEmail(),
-body('password', 'Should me atleast 8 charachter').isLength({ min: 8 })
+router.post('/create', [
+    body('name', "Name should not be empty").notEmpty(),
+    body('email', "email invalid").isEmail(),
+    body('password', 'Should be at least 8 characters').isLength({ min: 8 })
 ], async (req, res) => {
+    let success = false; // Use let instead of const
     try {
-        //Validate that request data is appropriate (using express-validator)
+        // Validate that request data is appropriate (using express-validator)
         const result = validationResult(req);
+         
         if (!result.isEmpty()) {
-            return res.status(400).json({ result: result.array() })
+            return res.status(400).send({ success: false, result:result.array()})
         }
-        // check if user already exist
+
+        // check if user already exists
         const { email } = req.body;
         const existingUser = await User.findOne({ email }, { email: 1 })
         if (existingUser) {
-            return res.status(400).json({ message: "User Already Exists" });
+            return res.status(400).json({ success: false, message: "User Already Exists" });
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -36,13 +40,12 @@ body('password', 'Should me atleast 8 charachter').isLength({ min: 8 })
 
         const user = await User.create(data);
         const token = jwt.sign(user.id, process.env.JWT_Secret)
-        return res.status(201).json({ token: token }); // Add 'return' here
+        success = true;
+        return res.status(201).json({ success: true, token: token });
 
-    }
-
-    catch (err) {
+    } catch (err) {
         console.error(err.message);
-        res.status(400).json({ err: err.message });
+        res.status(400).json({ success, err: err.message });
     }
 });
 
@@ -53,21 +56,22 @@ body('password', "Enter a Valid Password").exists()], async (req, res) => {
 
     const error = validationResult(req)
     if (!error.isEmpty()) {
-        return res.status(400).json({ error })
+        return res.status(400).json({success: false, error })
     }
 
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email })
            if (!user){
-            return res.status(400).json("Invalid Credentials")
+            return res.status(400).json({success: false,msg:"Invalid Credentials"})
            }
         const passwordCompare = bcrypt.compare(password, user.password)
         if (! passwordCompare ){
-            return res.status(400).json("Invalid Credentials")
+            return res.status(400).json({success: false,msg:"Invalid Credentials"})
         }
-        const authToken = jwt.sign(user.id, process.env.JWT_Secret)
-        res.status(201).json({authToken})
+        const auth = jwt.sign(user.id, process.env.JWT_Secret)
+        const authToken= auth.toString();
+        res.status(201).json({success:true,authToken})
         //    return res.status(201).json({user})
     } catch (err) {
         console.log({ err })

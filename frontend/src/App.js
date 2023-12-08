@@ -1,48 +1,52 @@
-import {  
-  BrowserRouter,  
-  Routes,  
-  Route,  
-}   
-from 'react-router-dom';  
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+}
+  from 'react-router-dom';
 
 import './App.css';
-import Navbar from './components/Navbar';
+
 import Home from './components/Home';
 import About from './components/About';
-import React, { useEffect } from 'react';
-import fetchNotes from './redux/api/notesApi';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import NoteItems from './components/NoteItems';
 import NoteItemsCard from './components/NoteItemsCard';
+import Signin from './components/user/Signin';
+import Login from './components/user/Login';
+import Landing from './components/Landing';
+import Alert from './components/Alert';
 
 
 
 function App() {
-  
-  const dispatch =useDispatch()
-   useEffect(()=>{
-dispatch(fetchNotes())
-   },[dispatch])
+
+
   return (
-   <>
+    <>
 
-   <BrowserRouter>
-   <Navbar />
+      <BrowserRouter>
+        
+        <Signin />
+        <Login />
 
-   <div className='container'>
-   <Routes>
-    <Route path="/" element={  <Home />}/>
-   <Route path="/about" element={  <About />}/>
-   <Route path="/about" element={  <About />}/>
-  <Route path="/notecards" element={<NoteItemsCard />} />
-  <Route path="/note" element={<NoteItems />} />
-  
-  
-    </Routes>
-    </div>
-    </BrowserRouter>
-   
-   </>
+        
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/notecards" element={<NoteItemsCard />} />
+            <Route path="/note" element={<NoteItems />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signin" element={<Alert/>} />
+
+
+          </Routes>
+       
+      </BrowserRouter>
+
+    </>
   );
 }
 
