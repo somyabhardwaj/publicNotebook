@@ -3,7 +3,7 @@ import { FaLinkedin, FaInstagram, FaTwitter, FaGithub } from 'react-icons/fa';
 
 function Footer() {
   return (
-    <footer className="bg-dark text-white text-center py-3">
+    <footer className="bg-dark text-white text-center py-3 mt-3" style={{psition:"fixed", marginBottom:"0",width:"100%"}}>
       <div className="container">
         <div className="row">
           <div className="col-md-6">
@@ -12,22 +12,22 @@ function Footer() {
           <div className="col-md-6">
             <ul className="list-inline mb-0">
               <li className="list-inline-item">
-                <a href="https://www.linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/somya-bhardwaj8960/" target="_blank" rel="noopener noreferrer">
                   <FaLinkedin size={30} className="text-light" />
                 </a>
               </li>
               <li className="list-inline-item">
-                <a href="https://www.instagram.com/your-instagram-profile" target="_blank" rel="noopener noreferrer">
+                <a href="#" target="_blank" rel="noopener noreferrer">
                   <FaInstagram size={30} className="text-light" />
                 </a>
               </li>
               <li className="list-inline-item">
-                <a href="https://twitter.com/your-twitter-profile" target="_blank" rel="noopener noreferrer">
+                <a href="#" target="_blank" rel="noopener noreferrer">
                   <FaTwitter size={30} className="text-light" />
                 </a>
               </li>
               <li className="list-inline-item">
-                <a href="https://github.com/your-github-profile" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/somyabhardwaj" target="_blank" rel="noopener noreferrer">
                   <FaGithub size={30} className="text-light" />
                 </a>
               </li>

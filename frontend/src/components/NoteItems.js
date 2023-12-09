@@ -52,6 +52,8 @@ function NoteItems() {
     ref.current.click();
   };
 
+
+
   return (
     <>
       <button className="d-none" ref={ref} data-bs-toggle="modal" data-bs-target="#showModal">
@@ -164,7 +166,7 @@ function NoteItems() {
           </div>
         </div>
 
-        <table className="table table-striped table-bordered mt-3">
+        <table className="table table-striped table-bordered mt-3 " style={{minHeight:"50vh"}}>
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -190,7 +192,7 @@ function NoteItems() {
                 <tr key={note._id}>
                   <th scope="row">{index + 1}</th>
                   <td>{note.title}</td>
-                  <td>{note.description.substring(0, 20)}</td>
+                  <td>{note.description.substring(0, 20)}..</td>
                   <td>{note.tag}</td>
                   <td>
                     <div className="d-flex justify-content-between">

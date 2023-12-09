@@ -59,7 +59,7 @@ function NoteItemsCard() {
     setData(showNote);
     ref.current.click();
   };
-
+      
   return (
     <>
       <Usernavbar />
@@ -178,7 +178,7 @@ function NoteItemsCard() {
         </div>
 
         {/* // Cards start from here */}
-        <div className="row">
+        <div className="row" style={{minHeight:"54vh"}}>
           {Notes.map((note, index) => (
             <div className="col-md-4 mt-4" key={note._id}>
               <div className="card h-100">
