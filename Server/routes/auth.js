@@ -83,12 +83,12 @@ body('password', "Enter a Valid Password").exists()], async (req, res) => {
 
 router.post('/getuser', fetchUser , async (req,res)=>{
     try{
-        console.log({user:req.user})
+        
         const userid = req.user;
         const userData = await User.findById(userid).select("-password")
-        res.status(200).json(userData)
+        return res.status(200).json({userData})
     }catch (err) {
-        console.log({ err })
+       
         return res.status(500).json({ err: err.message })
     }
 })

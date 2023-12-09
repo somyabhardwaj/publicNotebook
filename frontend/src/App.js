@@ -16,6 +16,7 @@ import Signin from './components/user/Signin';
 import Login from './components/user/Login';
 import Landing from './components/Landing';
 import Alert from './components/Alert';
+import Footer from './components/Footer';
 
 
 
@@ -43,7 +44,7 @@ function App() {
 
 
           </Routes>
-       
+        <Footer />
       </BrowserRouter>
 
     </>

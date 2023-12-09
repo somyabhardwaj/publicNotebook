@@ -46,3 +46,39 @@ export const userLogin = createAsyncThunk('user/login', async (user)=>{
         throw err;
     }
 })
+//Route 3 - fetch user deatails
+
+export const userDetails = createAsyncThunk('user/getuser', async (token) => {
+  try {
+    
+
+    const res = await axios.post(`${host}user/getuser`, null, {
+      headers: {
+        "auth-token": token,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+});
+
+// export const userDetails = createAsyncThunk('user/getuser', async (_, { getState }) => {
+//   try {
+//     const state = getState();
+//     const token = state.user.authToken;
+
+//     console.log("user api token:", token);
+
+//     const res = await axios.post(`${host}user/getuser`, null, {
+//       headers: {
+//         "auth-token": token,
+//       },
+//     });
+
+//     return res.data;
+//   } catch (err) {
+//     throw err;
+//   }
+// });

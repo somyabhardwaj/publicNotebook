@@ -1,90 +1,88 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import fetchNotes, { editNotes } from '../../redux/api/notesApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-
-
 function Edit() {
-
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
-  const [tag, setTag] = useState();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [tag, setTag] = useState('');
 
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.notes.id)
-  const loading = useSelector((state)=> state.notes.status)
+  const id = useSelector((state) => state.notes.id);
+  const loading = useSelector((state) => state.notes.status);
   const token = useSelector((state) => state.user.authToken);
-  const { enqueueSnackbar } = useSnackbar();    
-
+  const { enqueueSnackbar } = useSnackbar();
 
   const handelOnChange = (e) => {
-    const { id, value } = e.target
+    const { id, value } = e.target;
     if (id === 'title') {
-      setTitle(value)
+      setTitle(value);
     }
     if (id === 'tag') {
-      setTag(value)
+      setTag(value);
     }
     if (id === 'description') {
-      setDescription(value)
+      setDescription(value);
     }
-  }
+  };
 
   const handelOnClick = () => {
-
     const data = {
       title,
       description,
       tag,
       id,
-      token
-    }
-    dispatch(editNotes(data))
-    .then(() => dispatch(fetchNotes(token)))
-    .then(()=>{
-      if(loading === 'fulfilled'){
-        enqueueSnackbar('Note Updated Successfully',{ variant: 'success'})
-    }
-    if(loading === 'rejected'){
-        enqueueSnackbar("Error:note can not be updated", {varient:'error'})
-    }
-    })
-      .catch((error) => {
-        console.error("Error editing note:", error);
-      });    
+      token,
+    };
 
-  }
+    dispatch(editNotes(data))
+      .then(() => dispatch(fetchNotes(token)))
+      .then(() => {
+        if (loading === 'fulfilled') {
+          enqueueSnackbar('Note Updated Successfully', { variant: 'success' });
+        }
+        if (loading === 'rejected') {
+          enqueueSnackbar('Error: Note cannot be updated', { variant: 'error' });
+        }
+      })
+      .catch((error) => {
+        console.error('Error editing note:', error);
+      });
+  };
 
   return (
-    <>
-      <div className=''>        
-        <div className="mb-3 row" id="#edit">
-          <label htmlFor="title" className="col-sm-2 col-form-label">Title</label>
-          <div className="col-sm-10">
-            <input type="textbox" className="form-control" id="title" value={title} onChange={handelOnChange} />
-          </div>
+    <div className="container">
+      <form>
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
+          <input type="text" className="form-control" id="title" value={title} onChange={handelOnChange} />
         </div>
-        <div className="mb-3 row">
-          <label htmlFor="description" className="col-sm-2 col-form-label">Description</label>
-          <div className="col-sm-10">
-            <textarea type="textbox" className="form-control" id="description" value={description} onChange={handelOnChange} />
-          </div>
+        <div className="mb-3">
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
+          <textarea className="form-control" id="description" value={description} onChange={handelOnChange} />
         </div>
-        <div className="mb-3 row">
-          <label htmlFor="tag" className="col-sm-2 col-form-label">Tag</label>
-          <div className="col-sm-10">
-            <input type="textbox" className="form-control" id="tag" value={tag} onChange={handelOnChange} />
-          </div>
+        <div className="mb-3">
+          <label htmlFor="tag" className="form-label">
+            Tag
+          </label>
+          <input type="text" className="form-control" id="tag" value={tag} onChange={handelOnChange} />
         </div>
-        {/* <button data-bs-dismiss="modal" onClick={handelOnClick} className='btn btn-primary'>Submit</button> */}
         <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button"  onClick={handelOnClick} className="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
-      </div>
-      </div>
-    </>
-  )
+          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" onClick={handelOnClick} className="btn btn-primary" data-bs-dismiss="modal">
+            Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
 
-export default Edit
+export default Edit;

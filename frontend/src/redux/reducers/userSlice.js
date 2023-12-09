@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, userSignIn } from "../api/userApi";
+import { userDetails, userLogin, userSignIn } from "../api/userApi";
 
 const loadAuthToken = () => {
   try {
@@ -46,7 +46,12 @@ const userSlice = createSlice({
       })
       .addCase(userSignIn.fulfilled, (state, action) => {
         state.status = action.payload.success;
-      });
+      })
+      .addCase(userDetails.fulfilled,(state,action)=>{
+        
+        state.data = action.payload
+        console.log(state.data)
+      })
   },
 });
 
