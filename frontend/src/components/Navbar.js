@@ -26,11 +26,11 @@ function Navbar() {
   };
 
   const onHomeClick = () => {
-    if (token !== null) {
+    if (token) {
       navigate('/home');
     }
     if (token === null) {
-      navigate('/alert');
+      navigate('/');
     }
   };
 
@@ -55,7 +55,7 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-          <Link className= {`nav-link ${location.pathname === "/home" ? "active":""}`}aria-current="page" to="/">Home</Link>
+          <Link className= {`nav-link ${location.pathname === "/home" ? "active":""}`}aria-current="page" onClick={onHomeClick}>Home</Link>
         </li>        
               <li className="nav-item">
                 <Link className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} to="/about">

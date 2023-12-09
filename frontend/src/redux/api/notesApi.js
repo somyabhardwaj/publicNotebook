@@ -2,7 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 
 
-const host = "http://localhost:5000/api/";
+const host = "https://notebook-backend-rc1m.onrender.com/";
+// const host = "http://localhost:5000/api/";
 
 // Fetch all notes
 const fetchNotes = createAsyncThunk("notes/getnotes", async (token) => {

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "start:dev": "node ./dist/main.js",
     "build:dev": "webpack --config webpack.dev.js --mode development"
   },
