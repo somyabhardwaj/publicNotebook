@@ -1,54 +1,85 @@
-# Notebook Project
+# Notebook App
 
-Welcome to Notebook, a web application where users can manage their notes. This project uses MongoDB, Mongoose, bcrypt, JWT, Notistack, and Axios.
+## Vercel app link
+[https://public-notebook-hpgk.vercel.app/](https://public-notebook-hpgk.vercel.app/).
 
-## Frontend Development
-The frontend of this project is developed using React, Redux, and Material-UI. To set up and run the frontend, follow the steps below:
+## Render.Com Link
+[https://notebook-backend-rc1m.onrender.com/](https://notebook-backend-rc1m.onrender.com/)
 
-## Navigate to the frontend directory:
-cd frontend
+## Introduction
 
-## Install dependencies:
+Book My Show is a web application that allows users to easily book movie tickets and view their previous bookings. The application consists of a frontend hosted on Netlify and a backend hosted on Render.
+
+## Frontend Dependencies
+
+The frontend of this application utilizes the following dependencies:
+
+- **axios **: A promise-based HTTP client for making requests to the backend.
+- **bootstrap **: A popular CSS framework for creating responsive and stylish user interfaces.
+- **notistack **: A notification library for displaying user-friendly messages.
+- **react-bootstrap **: A library that combines React and Bootstrap components.
+- **react-dom **: A package for rendering React components in the browser.
+- **react-scripts **: A set of scripts and configuration for React applications.
+- **react-toastify **: A toast notification library for React applications.
+
+## Backend Dependencies
+
+The backend of this application relies on the following dependencies:
+
+- **express **: A fast and minimal web framework for Node.js.
+- **mongodb **: The official MongoDB driver for Node.js.
+- **mongoose **: An elegant MongoDB object modeling tool for Node.js.
+
+## Hosting
+
+- Frontend: The frontend of this application is hosted on Netlify at [https://public-notebook-hpgk.vercel.app/](https://public-notebook-hpgk.vercel.app/).
+- Backend: The backend of this application is hosted on Render at [https://notebook-backend-rc1m.onrender.com/](https://notebook-backend-rc1m.onrender.com/).
+
+
+
+## Tech Stack
+
+- **Client:** React.js, Bootstrap
+- **Server:** Node.js, Express
+- **Database:** MongoDB
+
+## Usage
+
+1. Visit the Book My Show App frontend at [https://public-notebook-hpgk.vercel.app/](https://public-notebook-hpgk.vercel.app/).
+2. Select the movie you would like to watch.
+3. Choose a time slot.
+4. Select your desired seat type and number of seats.
+5. Click the "Book Now" button to make a booking.
+6. After booking, you will receive a successful booking message, and your last booking details will be displayed on the screen under the "Last Booking Details" heading.
+
+## Deployment
+
+- [Frontend](https://public-notebook-hpgk.vercel.app/)
+- [Backend](https://notebook-backend-rc1m.onrender.com/)
+
+## Local Development
+
+For local development, follow these steps:
+
+- Clone the repository.
+- Navigate to the `client` directory and run the following commands:
+ ```
+ cd frontend
+ npm install
+ npm start
+
+```
+
+- For the backend, navigate to the `server` directory and run the following commands:
+```
+cd server
 npm install
+npm run dev
+```
+## API Reference
 
-## Start the development server:
-npm start
-
-Open your browser and go to http://localhost:3000.
-
-# Backend Development
-The backend of this project is built using Node.js, Express, MongoDB, Mongoose, and JWT. To set up and run the backend, follow the steps below:
-
-Navigate to the backend directory:
-cd backend
-
-## Install dependencies:
-npm install
-
-Create a .env file in the backend directory and add the following configurations:
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-
-## Start the server:
-npm start
-
-The server will be running at http://localhost:5000.
-
-
-
-### Features
-User authentication with JWT
-Create, read, update, and delete notes
-Notifications using Notistack
-...
-
-
-
-### Contributing
-Feel free to contribute to this project by opening issues or pull requests. Your feedback is highly appreciated!
-
-# Author
-### Somya Bhardwaj
-
+Base URL
+```https
+https://notebook-backend-rc1m.onrender.com/
+```
 
