@@ -27,7 +27,9 @@ const userSlice = createSlice({
     Lstatus: false,
     authToken: loadAuthToken(), // Load authToken from localStorage on initialization
     data: null,
-    message: ""
+    message: "",
+    loading:"idel",
+    sloading:"idel"
   },
   reducers: {
     // Your other reducers can go here if needed.
@@ -37,16 +39,30 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    // Login cases
+    .addCase(userLogin.pending, (state) => {
+      state.loading = "pending" ;
+    })
       .addCase(userLogin.fulfilled, (state, action) => {
         state.authToken = action.payload.data.authToken;
         state.Lstatus = action.payload.data.success;
-
         // Save the authToken to localStorage on successful login
         saveAuthToken(action.payload.data.authToken);
+      })
+      
+      .addCase(userLogin.rejected, (state, action) => {
+        state.loading = "pending" ;
+      })
+      // Signin Cases
+      .addCase(userSignIn.pending, (state, action) => {
+        state.sloading = "pending" ;
       })
       .addCase(userSignIn.fulfilled, (state, action) => {
         state.status = action.payload.success;
       })
+      
+
+      // Case for fetching user details
       .addCase(userDetails.fulfilled,(state,action)=>{
         
         state.data = action.payload

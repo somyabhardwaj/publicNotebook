@@ -12,6 +12,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.authToken);
+  const status = useSelector((state) => state.user.loading);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const handelOnChange = (e) => {
@@ -36,6 +37,7 @@ function Login() {
     .then((response) => {
       
       if (response && response.payload.data && response.payload.data.success === true) {
+        
         enqueueSnackbar('Login Successful redirecting to login paige', { variant: 'success' })
         navigate('/home')
         dispatch(fetchNotes(token))
