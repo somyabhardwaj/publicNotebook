@@ -1,15 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';  // Assuming you are using Redux for state management
 import Navbar from '../components/Navbar';
+import Spinner from './Spinner';
 
 function Landing() {
   const status = useSelector((state) => state.user.loading);
 
   return (
     <div>
+    
       {status === "pending" ? (
         // Loading indicator
-        <div>Loading...</div>
+       
+        
+        <Spinner />
+        
       ) : (
         // Your component content
         <div>

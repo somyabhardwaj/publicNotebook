@@ -4,7 +4,7 @@ import { userSignIn } from '../../redux/api/userApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { Link } from 'react-router-dom';
-
+import { setLoading } from '../../redux/reducers/userSlice';
 
 function Signin() {
     const [name, setName] = useState('');
@@ -57,6 +57,7 @@ function Signin() {
                 enqueueSnackbar('An error occurred. Please try again.', { variant: 'error' });
             })
             .finally(() => {
+                dispatch(setLoading())
                 setName("");
                 setEmail("");
                 setPassword("");

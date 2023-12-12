@@ -4,7 +4,8 @@ import { userLogin } from '../../redux/api/userApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import fetchNotes from "../../redux/api/notesApi"
+import fetchNotes from "../../redux/api/notesApi";
+import { setLoading } from '../../redux/reducers/userSlice';
 
 
 function Login() {
@@ -48,6 +49,7 @@ function Login() {
         navigate("")
       })
       .finally(()=>{
+        dispatch(setLoading())
         setEmail('')
     setPassword('')
       })
